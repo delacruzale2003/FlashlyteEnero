@@ -11,13 +11,10 @@ const BackgroundCC: React.FC = () => {
             100% { background-position: 0% 0%; }
           }
           .animate-sunset-mesh {
-            /* Color base predominante abajo: Rosa */
             background-color: #e1438d; 
-            
-            /* Colores arriba repartidos: Amarillo (Izquierda) y Rojo (Derecha) */
             background-image: 
-              radial-gradient(at 0% 0%, #e73835 0px, transparent 40%),   /* Amarillo Top-Left */
-              radial-gradient(at 100% 0%, #fccb34 0px, transparent 60%); /* Rojo Top-Right */
+              radial-gradient(at 0% 0%, #e73835 0px, transparent 40%),   
+              radial-gradient(at 100% 0%, #fccb34 0px, transparent 60%);
             
             background-size: 110% 110%;
             animation: subtleFlow 20s ease-in-out infinite;
@@ -25,8 +22,26 @@ const BackgroundCC: React.FC = () => {
         `}
       </style>
       
+      {/* Capa 1: Fondo Animado */}
+      <div className="fixed inset-0 w-full h-full -z-20 animate-sunset-mesh" />
+
+      {/* Capa 2: Imagen de Palmeras SOBREEXPUESTAS */}
       <div 
-        className="fixed inset-0 w-full h-full -z-10 animate-sunset-mesh"
+        className="fixed inset-0 w-full h-full -z-10 pointer-events-none"
+        style={{
+          backgroundImage: "url('/palmeras.png')",
+          backgroundPosition: 'bottom center', 
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '130% auto', 
+          
+          /* CAMBIOS PARA SOBREEXPONER: */
+          /* 'screen' mezcla la luz de la imagen con el fondo, ideal para efectos brillantes */
+          mixBlendMode: 'screen', 
+          /* Subimos la opacidad para que se note la sobreexposición */
+          opacity: 0.8,
+          /* Reforzamos el brillo de la palmera específicamente */
+          filter: 'brightness(1.2) contrast(1.1)'
+        }}
       />
     </>
   );

@@ -1,52 +1,35 @@
 import React from 'react';
 
 const BackgroundCC: React.FC = () => {
-  // Color de fondo solicitado
-  const mainBackgroundColor = '#e30613'; 
-
-  // Usamos la clase CSS pura definida en index.css
-  const animationClass = "float-animation-slow";
-
-  return (
-    // Contenedor principal del fondo que ocupa toda la pantalla
-    <div 
-      className="fixed inset-0 w-full h-full -z-10" // -z-10 asegura que esté detrás del contenido
-      style={{ backgroundColor: mainBackgroundColor }}
-    >
-      {/* IMAGEN TOP-LEFT: Ahora la ruta /top-left.png es servida directamente desde /public */}
-      <img
-        src="/top-left.png" 
-        alt="Decoración superior izquierda"
-        // CLASES DE RESPONSIVENESS Y ANIMACIÓN: hidden sm:block para ocultar en móvil
-        className={`absolute top-0 left-0 w-1/4 max-w-[150px] h-auto ${animationClass} hidden sm:block`}
-        style={{ animationDelay: '0s' }} // Empieza inmediatamente
-      />
-
-      {/* IMAGEN TOP-RIGHT */}
-      <img
-        src="/top-right.png"
-        alt="Decoración superior derecha"
-        className={`absolute top-0 right-0 w-1/4 max-w-[150px] h-auto ${animationClass} hidden sm:block`}
-        style={{ animationDelay: '1.5s' }}
-      />
-
-      {/* IMAGEN BOTTOM-LEFT */}
-      <img
-        src="/bottom-left.png"
-        alt="Decoración inferior izquierda"
-        className={`absolute bottom-0 left-0 w-1/4 max-w-[150px] h-auto ${animationClass} hidden sm:block`}
-        style={{ animationDelay: '3s' }}
-      />
-
-      {/* IMAGEN BOTTOM-RIGHT */}
-      <img
-        src="/bottom-right.png"
-        alt="Decoración inferior derecha"
-        className={`absolute bottom-0 right-0 w-1/4 max-w-[150px] h-auto ${animationClass} hidden sm:block`}
-        style={{ animationDelay: '4.5s' }}
-      />
-    </div>
-  );
+  return (
+    <>
+      <style>
+        {`
+          @keyframes subtleFlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 10% 5%; }
+            100% { background-position: 0% 0%; }
+          }
+          .animate-sunset-mesh {
+            /* Color base predominante abajo: Rosa */
+            background-color: #e1438d; 
+            
+            /* Colores arriba repartidos: Amarillo (Izquierda) y Rojo (Derecha) */
+            background-image: 
+              radial-gradient(at 0% 0%, #e73835 0px, transparent 40%),   /* Amarillo Top-Left */
+              radial-gradient(at 100% 0%, #fccb34 0px, transparent 60%); /* Rojo Top-Right */
+            
+            background-size: 110% 110%;
+            animation: subtleFlow 20s ease-in-out infinite;
+          }
+        `}
+      </style>
+      
+      <div 
+        className="fixed inset-0 w-full h-full -z-10 animate-sunset-mesh"
+      />
+    </>
+  );
 }
 
 export default BackgroundCC;
